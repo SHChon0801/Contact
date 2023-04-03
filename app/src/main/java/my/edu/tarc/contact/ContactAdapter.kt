@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import my.edu.tarc.contact.R
 
 class ContactAdapter : RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
     //Cached copy of contacts
@@ -18,7 +19,7 @@ class ContactAdapter : RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
 
     internal fun setContact(contact: List<Contact>){
         this.contactList = contact
-        notifyDataSetChanged()
+        notifyDataSetChanged() //Refresh the Recycle View
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

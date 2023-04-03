@@ -3,6 +3,7 @@ package my.tarc.mycontact
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
+//Provides CRUD
 @Dao
 interface ContactDao {
     @Query("SELECT * FROM contact ORDER BY name ASC")
@@ -13,4 +14,7 @@ interface ContactDao {
 
     @Delete
     suspend fun delete(contact: Contact)
+
+    @Update
+    suspend fun update(contact: Contact)
 }

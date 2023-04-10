@@ -12,4 +12,8 @@
     <string name="cancel">Cancel</string>
     <string name="contact_saved">Contact Saved</string>
     <string name="no_record">No record</string>
+    <string name="upload_error">Upload is null or empty</string>
+    <string name="upload">Upload</string>
+    <string name="eror_upload">Error uploading contact</string>
+    <string name="success_upload">Contacts uploaded</string>
 </resources>

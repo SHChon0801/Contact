@@ -5,7 +5,9 @@ import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.Toast
@@ -15,6 +17,8 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import my.edu.tarc.contact.databinding.FragmentProfileBinding
 import java.io.File
 import java.io.FileNotFoundException
@@ -86,6 +90,7 @@ class ProfileFragment : Fragment(), MenuProvider {
             }
 
             saveProfilePicture(binding.imageViewPicture)
+            uploadProfilePicture()
 
             Toast.makeText(context, getString(R.string.profile_saved), Toast.LENGTH_SHORT).show()
         }else if(menuItem.itemId == android.R.id.home){
@@ -110,6 +115,24 @@ class ProfileFragment : Fragment(), MenuProvider {
             outputStream.close()
         }catch (e: FileNotFoundException){
             e.printStackTrace()
+        }
+    }
+
+    private fun uploadProfilePicture() {
+        val filename = "profile.png"
+        val file = Uri.fromFile(File(this.context?.filesDir, filename))
+
+        try {
+            var storageRef = Firebase.storage("gs://contact-4be59.appspot.com").reference
+            val id = sharedPreferences.getString(getString(R.string.phone), "")
+            if (id.isNullOrEmpty()) {
+                Toast.makeText(context, getString(R.string.upload_error), Toast.LENGTH_SHORT).show()
+            } else {
+                val profilePicRef = storageRef.child("file").child(id)
+                profilePicRef.putFile(file)
+            }
+        } catch (ex: FileNotFoundException) {
+            Log.d("Profile Fragment", "Profile picture not found")
         }
     }
 

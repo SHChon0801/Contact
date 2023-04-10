@@ -29,7 +29,7 @@ class ContactRepository(private val contactDao: ContactDao){
         //TODO: Sync local contact to the Cloud Database
         if (allContacts.isInitialized) {
             val database = Firebase.database("https://contact-4be59-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
-            if (allContacts.value!!.isEmpty()) {
+            if (!allContacts.value!!.isEmpty()) {
                 allContacts.value!!.forEach {
                     database.child(id).child(it.phone).setValue(it)
                 }

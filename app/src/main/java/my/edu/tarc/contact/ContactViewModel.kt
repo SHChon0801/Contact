@@ -10,6 +10,7 @@ class ContactViewModel (application: Application): AndroidViewModel(application)
     //LiveData gives us updated contacts when they change
     var contactList : LiveData<List<Contact>>
     private val repository: ContactRepository
+    var selectedIndex: Int = -1
 
     init {
         //Get an instance of the DB and return the DAO
@@ -30,5 +31,13 @@ class ContactViewModel (application: Application): AndroidViewModel(application)
 
     fun uploadContact(id: String) = viewModelScope.launch {
         repository.uploadContacts(id)
+    }
+
+    fun deleteContact(contact: Contact) = viewModelScope.launch {
+        repository.delete(contact)
+    }
+
+    fun deleteAll() =viewModelScope.launch {
+        repository.deleteAll()
     }
 }

@@ -3,12 +3,13 @@ package my.tarc.mycontact
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ExpandableListView.OnChildClickListener
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import my.edu.tarc.contact.R
 
-class ContactAdapter : RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
+class ContactAdapter(private val recordClickListener: RecordClickListener) : RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
     //Cached copy of contacts
     private var contactList = emptyList<Contact>()
 
@@ -34,8 +35,9 @@ class ContactAdapter : RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
         holder.textViewName.text = contactList[position].name
         holder.textViewContact.text = contactList[position].phone
         holder.itemView.setOnClickListener {
-            //Item click event handler
-            Toast.makeText(it.context, "Contact name:" + contactList[position].name, Toast.LENGTH_SHORT).show()
+//            Item click event handler
+            recordClickListener.onRecordClickListener(position)
+//            Toast.makeText(it.context, "Contact name:" + contactList[position].name, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -43,4 +45,8 @@ class ContactAdapter : RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
         return contactList.size
     }
 
+}
+
+interface RecordClickListener {
+    fun onRecordClickListener(index: Int)
 }

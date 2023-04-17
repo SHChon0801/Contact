@@ -66,4 +66,7 @@ dependencies {
 
     //Live Data
     implementation 'androidx.lifecycle:lifecycle-livedata-core-ktx:2.6.1'
+
+    //Volley
+    implementation("com.android.volley:volley:1.2.1")
 }

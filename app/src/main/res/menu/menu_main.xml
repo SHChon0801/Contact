@@ -8,6 +8,11 @@
         android:title="@string/upload"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/action_downloads"
+        android:icon="@drawable/baseline_cloud_download_24"
+        android:title="@string/action_downloads"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"

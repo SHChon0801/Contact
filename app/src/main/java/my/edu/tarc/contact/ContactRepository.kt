@@ -21,6 +21,11 @@ class ContactRepository(private val contactDao: ContactDao){
     }
 
     @WorkerThread
+    suspend fun deleteAll(){
+        contactDao.deleteAll()
+    }
+
+    @WorkerThread
     suspend fun update(contact: Contact){
         contactDao.update(contact)
     }

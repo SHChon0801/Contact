@@ -43,10 +43,19 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener{
                 _,destination,_->
-            if(destination.id==R.id.nav_settings || destination.id == R.id.nav_second)
+            if(destination.id==R.id.nav_settings)
             {
+                title = getString(R.string.action_settings)
                 binding.fab.visibility = View.INVISIBLE
-            }else{
+            } else if (destination.id == R.id.nav_second) {
+                title = if (contactViewModel.selectedIndex == -1) {
+                    getString(R.string.add)
+                } else {
+                    getString(R.string.edit)
+                }
+                binding.fab.visibility = View.INVISIBLE
+            } else{
+                title = getString(R.string.app_name)
                 binding.fab.visibility = View.VISIBLE
             }
         }
@@ -85,24 +94,7 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> {
                 findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.nav_settings)
                 true
-            }
-            R.id.action_upload -> {
-                uploadContacts()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun uploadContacts() {
-        val sharedPrefeences = this.getPreferences(Context.MODE_PRIVATE)
-        val id = sharedPrefeences.getString(getString(R.string.phone), "")
-        if (id.isNullOrEmpty()) {
-            Toast.makeText(this, getString(R.string.eror_upload), Toast.LENGTH_SHORT).show()
-
-        } else {
-            contactViewModel.uploadContact(id)
-            Toast.makeText(this, getString(R.string.success_upload), Toast.LENGTH_SHORT).show()
+            } else -> super.onOptionsItemSelected(item)
         }
     }
 
